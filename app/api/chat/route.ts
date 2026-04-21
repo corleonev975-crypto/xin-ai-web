@@ -30,7 +30,7 @@ export async function POST(req: Request) {
   } catch (error: any) {
     console.error("ERROR:", error);
     return Response.json(
-      { text: "Error: " + (error?.message || "Unknown") },
+      { text: "ERROR: " + (error?.message || "Unknown error") },
       { status: 500 }
     );
   }
