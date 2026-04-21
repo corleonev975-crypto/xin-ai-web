@@ -9,26 +9,17 @@ export async function POST(req: Request) {
     });
 
     const response = await client.responses.create({
-      model: process.env.OPENAI_MODEL || "gpt-5.4-mini",
-      input: [
-        {
-          role: "system",
-          content: process.env.SYSTEM_PROMPT || "Kamu adalah AI pintar dan ramah",
-        },
-        {
-          role: "user",
-          content: message,
-        },
-      ],
+      model: "gpt-4.1-mini",
+      input: `Kamu adalah AI pintar yang menjawab dengan jelas.\n\nUser: ${message}`,
     });
 
-    const text = response.output_text || "Tidak ada jawaban";
+    const text = response.output_text || "Tidak ada jawaban.";
 
     return Response.json({ text });
   } catch (error: any) {
     console.error("ERROR:", error);
     return Response.json(
-      { text: "ERROR: " + (error?.message || "Unknown error") },
+      { text: "Terjadi error: " + (error?.message || "Unknown") },
       { status: 500 }
     );
   }
