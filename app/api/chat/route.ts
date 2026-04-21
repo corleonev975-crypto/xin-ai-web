@@ -22,14 +22,13 @@ export async function POST(req: Request) {
       ],
     });
 
-    const text =
-      response.output?.[0]?.content?.[0]?.text || "Tidak ada jawaban";
+    const text = response.output_text || "Tidak ada jawaban";
 
     return Response.json({ text });
   } catch (error: any) {
     console.error("ERROR:", error);
     return Response.json(
-      { text: "ERROR: " + error.message },
+      { text: "ERROR: " + (error?.message || "Unknown error") },
       { status: 500 }
     );
   }
